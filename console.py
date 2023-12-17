@@ -139,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
                     print("*** could not resolve {} ***".format(val))
                     pass
             if hasattr(new_instance, key):
-                new_instance.key = val
+                setattr(new_instance, key, val)
 
         storage.new(new_instance)
         print(new_instance.id)
