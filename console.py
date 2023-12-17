@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
             if hasattr(new_instance, key):
                 new_instance.key = val
 
-        storage.save()
+        storage.new(new_instance)
         print(new_instance.id)
         storage.save()
 
