@@ -29,7 +29,7 @@ class DBStorage:
 
         if envi == 'test':
             metadata = MetaData()
-            metadata.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
         
     def all(self, cls=None):
         dict = {}
