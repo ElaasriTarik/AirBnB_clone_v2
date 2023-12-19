@@ -28,10 +28,10 @@ class DBStorage:
                                     .format(usr, pwd, host, db), echo=False, pool_pre_ping=True)
 
         if envi == 'test':
-            metadata = MetaData()
             Base.metadata.drop_all(self.__engine)
         
     def all(self, cls=None):
+        """all"""
         dict = {}
         classes = [User, State, City, Amenity, Place, Review]
         if cls is None:
