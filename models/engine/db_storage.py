@@ -37,13 +37,14 @@ class DBStorage:
         if cls is None:
             for item in classes:
                 q = self.__session.query(item)
-                key = '{}.{}'.format(type(item).__name__, item.id)
-                dict[key] = item
+                for i in q.all():
+                    key = '{}.{}'.format(type(i).__name__, i.id)
+                    dict[key] = i
         else:
             if cls is str:
                 cls = eval(cls)
             q = self.__session.query(cls)
-            for item in classes:
+            for item in q.all():
                 key = '{}.{}'.format(type(item).__name__, item.id)
                 dict[key] = item 
         return (dict)
