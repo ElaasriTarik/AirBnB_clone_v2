@@ -24,8 +24,8 @@ class DBStorage:
         host = getenv('HBNB_MYSQL_HOST')
         db = getenv('HBNB_MYSQL_DB')
 
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}: \
-                            3306/{}".format(usr, pwd, host, db), echo=False, pool_pre_ping=True)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}' \
+                                    .format(usr, pwd, host, db), echo=False, pool_pre_ping=True)
 
         if envi == 'test':
             metadata = MetaData()
