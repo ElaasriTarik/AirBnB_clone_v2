@@ -4,6 +4,11 @@ import models
 from models.base_model import BaseModel, Base
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from os import getenv
+from models.review import Review
+
+from sqlalchemy.orm import relationship
+import shlex
 
 
 class Place(BaseModel, Base):
@@ -20,3 +25,19 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     amenity_ids = []
+
+    @property
+    def reviews(self):
+        if getenv("HBNB_MYSQL_DB") == "db":
+            reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
+        else:
+            """returns list of reviews"""
+        reviews_obj = models.storage.all()
+        res = []
+        for obj in reviews_obj:
+            obj = obj.replace('.', ' ')
+            obj = shlex.split(obj)
+            if obj[0] == 'City':
+                if obj[0].place_id == self.id:
+                    res.append(obj[0])
+            return (res)
