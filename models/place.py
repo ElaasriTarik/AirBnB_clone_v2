@@ -32,7 +32,7 @@ class Place(BaseModel, Base):
 
     @property
     def reviews(self):
-        if getenv("HBNB_MYSQL_DB") == "db":
+        if getenv("HBNB_TYPE_STORAGE") == "db":
             reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
             amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
         else:
