@@ -52,7 +52,7 @@ class Place(BaseModel, Base):
         return self.amenity_ids
     
     @amenities.setter
-    def amenities(self, obj):
+    def amenities(self, obj=None):
         """ appends an amenity to amenity_ids """
         if obj is not None and isinstance(obj, self.Amenity) and obj.id not in self.amenity_ids:
             self.amenity_ids.append(obj.id)
