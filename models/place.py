@@ -46,13 +46,13 @@ class Place(BaseModel, Base):
                         res.append(obj[0])
                 return (res)
 
-    @property
-    def amenities(self):
-        """ Returns amenity_ids """
-        return self.amenity_ids
-    
-    @amenities.setter
-    def amenities(self, obj=None):
-        """ appends an amenity to amenity_ids """
-        if obj is not None and type(obj) is Amenity and obj.id not in self.amenity_ids:
-            self.amenity_ids.append(obj.id)
+        @property
+        def amenities(self):
+            """ Returns amenity_ids """
+            return self.amenity_ids
+        
+        @amenities.setter
+        def amenities(self, obj=None):
+            """ appends an amenity to amenity_ids """
+            if obj is not None and type(obj) is Amenity and obj.id not in self.amenity_ids:
+                self.amenity_ids.append(obj.id)
