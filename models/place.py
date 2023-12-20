@@ -24,18 +24,18 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
 
-    @property
-    def reviews(self):
-        if getenv("HBNB_MYSQL_DB") == "db":
-            reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
-        else:
+    if getenv("HBNB_MYSQL_DB") == "db":
+        reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
+    else:
+        @property
+        def reviews(self):
             """returns list of reviews"""
-        reviews_obj = models.storage.all()
-        res = []
-        for obj in reviews_obj:
-            obj = obj.replace('.', ' ')
-            obj = shlex.split(obj)
-            if obj[0] == 'City':
-                if obj[0].place_id == self.id:
-                    res.append(obj[0])
+            reviews_obj = models.storage.all()
+            res = []
+            for obj in reviews_obj:
+                obj = obj.replace('.', ' ')
+                obj = shlex.split(obj)
+                if obj[0] == 'City':
+                    if obj[0].place_id == self.id:
+                        res.append(obj[0])
             return (res)
