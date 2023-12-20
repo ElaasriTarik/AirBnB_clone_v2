@@ -3,10 +3,15 @@
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from os import getenv
 from sqlalchemy.orm import relationship
 import shlex
+
+place_amenity = Table("place_amenity", Base.metadata, 
+                        Column("place_id", String(60), ForeignKey("places.id"), primary_key=True, nullable=False),
+                        Column("amenity_id", String(60), ForeignKey("amenities.id"), primary_key=True, nullable=False)
+                        )
 
 
 class Place(BaseModel, Base):
@@ -24,10 +29,12 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     amenity_ids = []
 
+
     @property
     def reviews(self):
         if getenv("HBNB_MYSQL_DB") == "db":
             reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
+            amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
         else:
             reviews_obj = models.storage.all()
             res = []
@@ -38,3 +45,14 @@ class Place(BaseModel, Base):
                     if obj[0].place_id == self.id:
                         res.append(obj[0])
                 return (res)
+
+    @property
+    def amenities(self):
+        """ Returns amenity_ids """
+        return self.amenity_ids
+    
+    @amenities.setter
+    def amenities(self, obj):
+        """ appends an amenity to amenity_ids """
+        if obj is not None and isinstance(obj, self.Amenity) and obj.id not in self.amenity_ids:
+            self.amenity_ids.append(obj.id)
