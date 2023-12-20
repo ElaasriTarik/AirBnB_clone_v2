@@ -30,12 +30,12 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
 
-    @property
-    def reviews(self):
-        if getenv("HBNB_TYPE_STORAGE") == "db":
-            reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
-            amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
-        else:
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship("Review", cascade="all, delete, delete-orphan", backref="place")
+        amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
+    else:
+        @property
+        def reviews(self):
             reviews_obj = models.storage.all()
             res = []
             for obj in reviews_obj:
@@ -54,5 +54,5 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, obj=None):
         """ appends an amenity to amenity_ids """
-        if obj is not None and isinstance(obj, self.Amenity) and obj.id not in self.amenity_ids:
+        if obj is not None and type(obj) is Amenity and obj.id not in self.amenity_ids:
             self.amenity_ids.append(obj.id)
