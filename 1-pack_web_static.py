@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-"""compress files"""
-from fabri.api import local
+# compress files
+from fabric.api import local
 import datetime import datetime
-import os.path
 
 
 def do_pack():
