@@ -17,7 +17,7 @@ echo "
      <body>
 	<h2>Nginx is working successfully</h2>
      </body>
-</html>" > /data/web_static/releases/test/
+</html>" > /data/web_static/releases/test/index.html
 
 if [ -L /data/web_static/current ]; then
     rm /data/web_static/current
@@ -46,3 +46,4 @@ http {
 
 service nginx restart
 nginx -s reload
+exit 0
