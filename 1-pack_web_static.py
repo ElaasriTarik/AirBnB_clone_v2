@@ -15,5 +15,5 @@ def do_pack():
                                                             time.minute,
                                                             time.second)
 
-    local(f"tar -czf {save_to} web_static")
+    local("tar -czf {} web_static".format(save_to))
     return save_to
