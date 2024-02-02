@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # compress files
 from fabric.api import local
-import datetime import datetime
+from datetime import datetime
 
 
 @task
