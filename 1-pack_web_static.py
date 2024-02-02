@@ -5,6 +5,7 @@ import datetime import datetime
 
 
 def do_pack():
+    """ compress to a tar gzip file """
     time = datetime.utcnow()
     local("mkdir -p versions")
     save_to = "versions/web_static_{}{}{}{}{}{}.tgz".format(time.year,
