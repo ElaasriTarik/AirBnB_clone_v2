@@ -42,7 +42,7 @@ http {
 }
 }
 
-" > /etc/nginx/sites-available/default
+" > /etc/nginx/nginx.conf
 
 service nginx restart
 nginx -s reload
