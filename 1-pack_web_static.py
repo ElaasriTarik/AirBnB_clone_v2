@@ -4,6 +4,7 @@ from fabric.api import local
 import datetime import datetime
 
 
+@task
 def do_pack():
     """ compress to a tar gzip file """
     time = datetime.utcnow()
