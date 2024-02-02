@@ -31,17 +31,18 @@ echo "
 events {}
 http {
     server {
-    	   listen *:80 default_server;
+    	   listen 80 default_server;
+    	   listen [::]:80 default_server;
 
-    	   location /hbnb_static/ {
-           	    alias /data/web_static/current/;
+    	   location /hbnb_static {
+           	    alias /data/web_static/current;
            	    index index.html;
     	   }
 
 }
 }
 
-" > /etc/nginx/nginx.conf
+" > /etc/nginx/sites-available/default
 
 service nginx restart
 nginx -s reload
