@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # set up web static
 
-apt-get -y update ; apt-get -y install nginx
+apt-get -y update ; apt-get install -y nginx
 
 mkdir -p /data/
 mkdir -p /data/web_static/
@@ -25,14 +25,13 @@ fi
 ln -s /data/web_static/releases/test/ /data/web_static/current
 
 #giving ownership
-sudo chown -R ubuntu:ubuntu /data/
+chown -R ubuntu /data/ ; chgrp -R ubuntu /data/
 
 echo "
 events {}
 http {
     server {
-    	   listen 80;
-    	   server_name onetarek.tech;
+    	   listen *:80 default_server;
 
     	   location /hbnb_static/ {
            	    alias /data/web_static/current/;
