@@ -1,4 +1,4 @@
-#!/usv/env/python3
+#!/usr/bin/python3
 # deploy to my web server
 from fabric import task
 from fabric import Connection, SerialGroup
