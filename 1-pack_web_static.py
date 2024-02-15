@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # acompress files
 from fabric.context_managers import path
-from fbric.api import local, task
+from fabric.api import local, task
 from datetime import datetime
 
 
@@ -18,5 +18,5 @@ def do_pack():
 								time.second)
 
 	with path("web_static"):
-		local("tar -czf {} .".format(save_to))
+		local("tar -czf {} web_static".format(save_to))
 	return save_to
