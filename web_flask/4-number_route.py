@@ -44,11 +44,12 @@ def display_py_text(text='is_cool'):
     return val
 
 
-@app.route('/number/<n>', strict_slashes=False)
-def display_number(text):
+@app.route('/number/<int:n>', strict_slashes=False)
+def display_number(n):
     """hello hbnb"""
-    if type(n, int):
-        return 'n is a number'
+    if type(n) == int:
+        n = escape(n)
+        return f'{n} is a number'
 
 
 if __name__ == '__main__':
